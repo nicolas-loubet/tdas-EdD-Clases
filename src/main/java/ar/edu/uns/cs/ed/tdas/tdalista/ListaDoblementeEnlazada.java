@@ -174,6 +174,61 @@ public class ListaDoblementeEnlazada<E> implements PositionList<E> {
 		}
 		return lista;
 	}
+
+	public ListaDoblementeEnlazada<E> clone() { //Clase 06-05: Ejercicio 5
+		ListaDoblementeEnlazada<E> nueva= new ListaDoblementeEnlazada<E>();
+		
+		for(NodoDoble<E> p= dummy.getSiguiente(); p != dummy; p= p.getSiguiente())
+			nueva.addLast(p.element());
+		return nueva;
+	}
+
+	public ListaDoblementeEnlazada<E> cloneConIterador() { //Clase 06-05: Ejercicio 5
+		ListaDoblementeEnlazada<E> nueva= new ListaDoblementeEnlazada<E>();
+		for(E i: this)
+			nueva.addLast(i);
+		return nueva;
+	}
+
+	public void med(E e) { //Clase 06-05: Ejercicio 6
+		for(NodoDoble<E> p= dummy.getSiguiente(); p != dummy; p= p.getSiguiente()) {
+			if(!p.element().equals(e))
+				continue;
+			NodoDoble<E> anterior= p.getAnterior();
+			NodoDoble<E> siguiente= p.getSiguiente();
+			anterior.setSiguiente(siguiente);
+			siguiente.setAnterior(anterior);
+			p.setSiguiente(null);
+			p.setAnterior(null);
+			p.setElemento(null);
+			p= anterior; //El for va a buscar su siguiente
+			size--;
+		}
+	}
+
+	public void atp(E e) { //Clase 06-05: Ejercicio 7
+		for(NodoDoble<E> p= dummy.getSiguiente(); p != dummy; p= p.getSiguiente()) {
+			if(!p.element().equals(e)) {
+				NodoDoble<E> anterior= p.getAnterior();
+				NodoDoble<E> nuevo= new NodoDoble<E>(e, anterior, p);
+				anterior.setSiguiente(nuevo);
+				p.setAnterior(nuevo);
+			}
+		}
+	}
+
+	public void atpConIterador(E e) { //Clase 06-05
+		for(Position<E> pos: positions()) {
+			if(!pos.element().equals(e)) {
+				NodoDoble<E> p= (NodoDoble<E>) pos;
+				NodoDoble<E> anterior= p.getAnterior();
+				NodoDoble<E> nuevo= new NodoDoble<E>(e, anterior, p);
+				anterior.setSiguiente(nuevo);
+				p.setAnterior(nuevo);
+			}
+		}
+	}
+
 	
 	public void ejercicioTP4_2(E e1, E e2) {
 		if(size <= 1) throw new BoundaryViolationException("No tengo suficiente cantidad de elementos para ejecutar la tarea, deben haber al menos 2.");
