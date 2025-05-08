@@ -30,7 +30,7 @@ public class MapTest {
 
 	private Map<Integer, Integer> getMapeo() {
 
-		return new MapeoConHash<Integer, Integer>();
+		return new MapConLista<Integer, Integer>();
 
 	}
 
