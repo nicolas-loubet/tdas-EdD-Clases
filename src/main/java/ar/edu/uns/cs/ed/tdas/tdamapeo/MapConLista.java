@@ -1,9 +1,8 @@
 package ar.edu.uns.cs.ed.tdas.tdamapeo;
 
-import javax.management.openmbean.InvalidKeyException;
-
 import ar.edu.uns.cs.ed.tdas.Entry;
 import ar.edu.uns.cs.ed.tdas.Position;
+import ar.edu.uns.cs.ed.tdas.excepciones.InvalidKeyException;
 import ar.edu.uns.cs.ed.tdas.tdalista.ListaDoblementeEnlazada;
 import ar.edu.uns.cs.ed.tdas.tdalista.PositionList;
 
@@ -83,6 +82,20 @@ public class MapConLista<K,V> implements Map<K,V> {
 		for(Entrada<K,V> e: lista)
 			entradas.addLast(e);
 		return entradas;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb= new StringBuilder(); sb.append("{");
+		boolean primero= true;
+		for(Entry<K,V> e: lista) {
+			if(!primero)
+				sb.append(", ");
+			sb.append(e);
+			primero= false;
+		}
+		sb.append("}");
+		return sb.toString();
 	}
 
 }
