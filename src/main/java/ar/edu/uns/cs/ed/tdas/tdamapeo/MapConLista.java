@@ -35,10 +35,9 @@ public class MapConLista<K,V> implements Map<K,V> {
 	@Override
 	public V put(K key, V value) {
 		if(key == null) throw new InvalidKeyException("La key no puede ser nula");
-		V anterior= null;
 		for(Entrada<K,V> e: lista)
 			if(e.getKey().equals(key)) {
-				anterior= e.getValue();
+				V anterior= e.getValue();
 				e.setValue(value);
 				return anterior;
 			}
