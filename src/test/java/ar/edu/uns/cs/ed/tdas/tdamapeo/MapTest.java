@@ -30,7 +30,7 @@ public class MapTest {
 
 	private Map<Integer, Integer> getMapeo() {
 
-		return new MapConLista<Integer, Integer>();
+		return new MapConHashAbierto<Integer, Integer>();
 
 	}
 
@@ -218,7 +218,6 @@ public class MapTest {
 					valor == null);
 
 			// Insertando 3 elementos.
-
 			s.put(i1, n1);
 
 			s.put(i2, n2);

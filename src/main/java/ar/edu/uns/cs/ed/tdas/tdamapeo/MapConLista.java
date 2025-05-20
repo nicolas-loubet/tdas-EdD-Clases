@@ -9,22 +9,22 @@ import ar.edu.uns.cs.ed.tdas.tdalista.PositionList;
 public class MapConLista<K,V> implements Map<K,V> {
 	PositionList<Entrada<K,V>> lista;
 	
-	public MapConLista() {
+	public MapConLista() { /// O(1)
 		lista= new ListaDoblementeEnlazada<Entrada<K,V>>();
 	}
 
 	@Override
-	public int size() {
+	public int size() { /// O(1)
 		return lista.size();
 	}
 
 	@Override
-	public boolean isEmpty() {
+	public boolean isEmpty() { /// O(1)
 		return size() == 0;
 	}
 
 	@Override
-	public V get(K key) {
+	public V get(K key) { /// O(n)
 		if(key == null) throw new InvalidKeyException("La key no puede ser nula");
 		for(Entrada<K,V> e: lista)
 			if(e.getKey().equals(key))
@@ -33,12 +33,11 @@ public class MapConLista<K,V> implements Map<K,V> {
 	}
 
 	@Override
-	public V put(K key, V value) {
+	public V put(K key, V value) { /// O(n)
 		if(key == null) throw new InvalidKeyException("La key no puede ser nula");
-		V anterior= null;
 		for(Entrada<K,V> e: lista)
 			if(e.getKey().equals(key)) {
-				anterior= e.getValue();
+				V anterior= e.getValue();
 				e.setValue(value);
 				return anterior;
 			}
@@ -48,7 +47,7 @@ public class MapConLista<K,V> implements Map<K,V> {
 	}
 
 	@Override
-	public V remove(K key) {
+	public V remove(K key) { /// O(n)
 		if(key == null) throw new InvalidKeyException("La key no puede ser nula");
 		for(Position<Entrada<K,V>> p: lista.positions()) {
 			if(p.element().getKey().equals(key)) {
@@ -61,7 +60,7 @@ public class MapConLista<K,V> implements Map<K,V> {
 	}
 
 	@Override
-	public Iterable<K> keys() {
+	public Iterable<K> keys() { /// O(n)
 		PositionList<K> keys= new ListaDoblementeEnlazada<K>();
 		for(Entrada<K,V> e: lista)
 			keys.addLast(e.getKey());
@@ -69,7 +68,7 @@ public class MapConLista<K,V> implements Map<K,V> {
 	}
 
 	@Override
-	public Iterable<V> values() {
+	public Iterable<V> values() { /// O(n)
 		PositionList<V> values= new ListaDoblementeEnlazada<V>();
 		for(Entrada<K,V> e: lista)
 			values.addLast(e.getValue());
@@ -77,7 +76,7 @@ public class MapConLista<K,V> implements Map<K,V> {
 	}
 
 	@Override
-	public Iterable<Entry<K,V>> entries() {
+	public Iterable<Entry<K,V>> entries() { /// O(n)
 		PositionList<Entry<K,V>> entradas= new ListaDoblementeEnlazada<Entry<K,V>>();
 		for(Entrada<K,V> e: lista)
 			entradas.addLast(e);
