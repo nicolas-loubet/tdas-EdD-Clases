@@ -15,7 +15,7 @@ public class DiccionarioNoOrdenadoConHashCerrado<K,V> implements Dictionary<K,V>
 	private final Entrada<K,V> DISPONIBLE= new Entrada<K,V>();
 
 	@SuppressWarnings("unchecked")
-	public DiccionarioNoOrdenadoConHashCerrado(int N) {
+	public DiccionarioNoOrdenadoConHashCerrado(int N) { /// O(N)
 		this.N= N;
 		size= 0;
 		entries= new Entrada[N];
@@ -23,23 +23,23 @@ public class DiccionarioNoOrdenadoConHashCerrado<K,V> implements Dictionary<K,V>
 			entries[i]= null;
 	}
 
-	public DiccionarioNoOrdenadoConHashCerrado() {
+	public DiccionarioNoOrdenadoConHashCerrado() { /// O(N)
 		this(31);
 	}
 
-	private int hash(K i) {
+	private int hash(K i) { /// O(1)
 		if(i == null) throw new InvalidKeyException("La key no puede ser nula");
 		return i.hashCode()%N;
 	}
 	
-	private boolean esPrimo(int v) {
+	private boolean esPrimo(int v) { /// O(v)
 		for(int i= 2; i < v-1; i++)
 			if(v % i == 0)
 				return false;
 		return true;
 	}
 	
-	private int proximoPrimo(int v) {
+	private int proximoPrimo(int v) { /// O(v)
 		while(true) {
 			if(esPrimo(v))
 				return v;
@@ -49,7 +49,7 @@ public class DiccionarioNoOrdenadoConHashCerrado<K,V> implements Dictionary<K,V>
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void rehash() {
+	private void rehash() { /// O(N+n)
 		int N_viejo= N;
 		Entry<K,V> lista_anterior[]= entries;
 		
@@ -65,17 +65,17 @@ public class DiccionarioNoOrdenadoConHashCerrado<K,V> implements Dictionary<K,V>
 	}
 
 	@Override
-	public int size() {
+	public int size() { /// O(1)
 		return size;
 	}
 
 	@Override
-	public boolean isEmpty() {
+	public boolean isEmpty() { /// O(1)
 		return size() == 0;
 	}
 
 	@Override
-	public Entry<K,V> find(K key) {
+	public Entry<K,V> find(K key) { /// O(1)
 		if(key == null) throw new InvalidKeyException("La key no puede ser nula");
 		for(int i= hash(key); entries[i] != null; i++) {
 			if(entries[i] == DISPONIBLE) continue;
@@ -87,7 +87,7 @@ public class DiccionarioNoOrdenadoConHashCerrado<K,V> implements Dictionary<K,V>
 	}
 
 	@Override
-	public Iterable<Entry<K,V>> findAll(K key) {
+	public Iterable<Entry<K,V>> findAll(K key) { /// O(1)
 		if(key == null) throw new InvalidKeyException("La key no puede ser nula");
 		PositionList<Entry<K,V>> l= new ListaDoblementeEnlazada<Entry<K,V>>();
 		for(int i= hash(key); entries[i] != null; i++) {
@@ -100,7 +100,7 @@ public class DiccionarioNoOrdenadoConHashCerrado<K,V> implements Dictionary<K,V>
 	}
 
 	@Override
-	public Entry<K,V> insert(K key, V value) {
+	public Entry<K,V> insert(K key, V value) { /// O(1)
 		if(key == null) throw new InvalidKeyException("La key no puede ser nula");
 		Entry<K,V> e= new Entrada<K,V>(key,value);
 		int i;
@@ -115,7 +115,7 @@ public class DiccionarioNoOrdenadoConHashCerrado<K,V> implements Dictionary<K,V>
 	}
 
 	@Override
-	public Entry<K,V> remove(Entry<K,V> e) {
+	public Entry<K,V> remove(Entry<K,V> e) { /// O(1)
 		if(e == null) throw new InvalidEntryException("Entrada nula no admitida");
 		for(int i= hash(e.getKey()); entries[i] != null; i++) {
 			if(entries[i] == e) {
@@ -128,7 +128,7 @@ public class DiccionarioNoOrdenadoConHashCerrado<K,V> implements Dictionary<K,V>
 	}
 
 	@Override
-	public Iterable<Entry<K,V>> entries() {
+	public Iterable<Entry<K,V>> entries() { /// O(N+n)
 		PositionList<Entry<K,V>> l= new ListaDoblementeEnlazada<Entry<K,V>>();
 		for(int i= 0; i < N; i++) {
 			if(entries[i] == null) continue;
@@ -136,6 +136,14 @@ public class DiccionarioNoOrdenadoConHashCerrado<K,V> implements Dictionary<K,V>
 			l.addLast(entries[i]);
 		}
 		return l;
+	}
+
+	public Iterable<Entry<K,V>> eliminarTodas(K c,V v) { /// O(N+n)
+		PositionList<Entry<K,V>> borrados= new ListaDoblementeEnlazada<Entry<K,V>>();
+		for(Entry<K,V> e: entries())
+			if(e.getKey().equals(c) && e.getValue().equals(v))
+				borrados.addLast(remove(e));
+		return borrados;
 	}
 
 }

@@ -11,7 +11,7 @@ public class MapConHashAbierto<K,V> implements Map<K,V> {
 	int size;
 
 	@SuppressWarnings("unchecked")
-	public MapConHashAbierto(int N) {
+	public MapConHashAbierto(int N) { /// O(n)
 		this.N= N;
 		size= 0;
 		buckets= new MapConLista[N];
@@ -19,23 +19,23 @@ public class MapConHashAbierto<K,V> implements Map<K,V> {
 			buckets[i]= new MapConLista<K,V>();
 	}
 
-	public MapConHashAbierto() {
+	public MapConHashAbierto() { /// O(n)
 		this(31);
 	}
 
-	private int hash(K i) {
+	private int hash(K i) { /// O(1)
 		if(i == null) throw new InvalidKeyException("La key no puede ser nula");
 		return i.hashCode()%N;
 	}
 	
-	private boolean esPrimo(int v) {
+	private boolean esPrimo(int v) { /// O(v)
 		for(int i= 2; i < v-1; i++)
 			if(v % i == 0)
 				return false;
 		return true;
 	}
 	
-	private int proximoPrimo(int v) {
+	private int proximoPrimo(int v) { /// O(v)
 		while(true) {
 			if(esPrimo(v))
 				return v;
@@ -45,7 +45,7 @@ public class MapConHashAbierto<K,V> implements Map<K,V> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void rehash() {
+	private void rehash() { /// O(n + N)
 		Iterable<Entry<K,V>> it= entries();
 		N= proximoPrimo(N*2+1);
 		size= 0;
@@ -57,22 +57,22 @@ public class MapConHashAbierto<K,V> implements Map<K,V> {
 	}
 
 	@Override
-	public int size() {
+	public int size() { /// O(1)
 		return size;
 	}
 
 	@Override
-	public boolean isEmpty() {
+	public boolean isEmpty() { /// O(1)
 		return size() == 0;
 	}
 
 	@Override
-	public V get(K key) {
+	public V get(K key) { /// O(1)
 		return buckets[hash(key)].get(key);
 	}
 
 	@Override
-	public V put(K key, V value) {
+	public V put(K key, V value) { /// O(1)
 		V output= buckets[hash(key)].put(key,value);
 		if(output == null)
 			size++;
@@ -81,7 +81,7 @@ public class MapConHashAbierto<K,V> implements Map<K,V> {
 	}
 
 	@Override
-	public V remove(K key) {
+	public V remove(K key) { /// O(1)
 		V output= buckets[hash(key)].remove(key);
 		if(output != null)
 			size--;
@@ -89,7 +89,7 @@ public class MapConHashAbierto<K,V> implements Map<K,V> {
 	}
 
 	@Override
-	public Iterable<K> keys() {
+	public Iterable<K> keys() { /// O(n+N)
 		PositionList<K> keys= new ListaDoblementeEnlazada<K>();
 		for(int i= 0; i < N; i++)
 			for(K k: buckets[i].keys())
@@ -98,7 +98,7 @@ public class MapConHashAbierto<K,V> implements Map<K,V> {
 	}
 
 	@Override
-	public Iterable<V> values() {
+	public Iterable<V> values() { /// O(n+N)
 		PositionList<V> values= new ListaDoblementeEnlazada<V>();
 		for(int i= 0; i < N; i++)
 			for(V v: buckets[i].values())
@@ -107,7 +107,7 @@ public class MapConHashAbierto<K,V> implements Map<K,V> {
 	}
 
 	@Override
-	public Iterable<Entry<K,V>> entries() {
+	public Iterable<Entry<K,V>> entries() { /// O(n+N)
 		PositionList<Entry<K,V>> entries= new ListaDoblementeEnlazada<Entry<K,V>>();
 		for(int i= 0; i < N; i++)
 			for(Entry<K,V> e: buckets[i].entries())

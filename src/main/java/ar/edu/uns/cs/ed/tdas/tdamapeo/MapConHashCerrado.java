@@ -13,7 +13,7 @@ public class MapConHashCerrado<K,V> implements Map<K,V> {
 	private final Entrada<K,V> DISPONIBLE= new Entrada<K,V>();
 
 	@SuppressWarnings("unchecked")
-	public MapConHashCerrado(int N) {
+	public MapConHashCerrado(int N) { /// O(N)
 		this.N= N;
 		size= 0;
 		entries= new Entrada[N];
@@ -21,23 +21,23 @@ public class MapConHashCerrado<K,V> implements Map<K,V> {
 			entries[i]= null;
 	}
 
-	public MapConHashCerrado() {
+	public MapConHashCerrado() { /// O(N)
 		this(31);
 	}
 
-	private int hash(K i) {
+	private int hash(K i) { /// O(1)
 		if(i == null) throw new InvalidKeyException("La key no puede ser nula");
 		return i.hashCode()%N;
 	}
 	
-	private boolean esPrimo(int v) {
+	private boolean esPrimo(int v) { /// O(v)
 		for(int i= 2; i < v-1; i++)
 			if(v % i == 0)
 				return false;
 		return true;
 	}
 	
-	private int proximoPrimo(int v) {
+	private int proximoPrimo(int v) { /// O(v)
 		while(true) {
 			if(esPrimo(v))
 				return v;
@@ -47,7 +47,7 @@ public class MapConHashCerrado<K,V> implements Map<K,V> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void rehash() {
+	private void rehash() { /// O(n+N)
 		int N_viejo= N;
 		Entrada<K,V> lista_anterior[]= entries;
 		
@@ -63,17 +63,17 @@ public class MapConHashCerrado<K,V> implements Map<K,V> {
 	}
 
 	@Override
-	public int size() {
+	public int size() { /// O(1)
 		return size;
 	}
 
 	@Override
-	public boolean isEmpty() {
+	public boolean isEmpty() { /// O(1)
 		return size() == 0;
 	}
 
 	@Override
-	public V get(K key) {
+	public V get(K key) { /// O(1)
 		if(key == null) throw new InvalidKeyException("La key no puede ser nula");
 		for(int i= hash(key); entries[i] != null; i= (i+1)%N) {
 			if(entries[i].getKey().equals(key))
@@ -83,7 +83,7 @@ public class MapConHashCerrado<K,V> implements Map<K,V> {
 	}
 
 	@Override
-	public V put(K key, V value) {
+	public V put(K key, V value) { /// O(1)
 		if(key == null) throw new InvalidKeyException("La key no puede ser nula");
 		int i_disponible= -1;
 		int i;
@@ -106,7 +106,7 @@ public class MapConHashCerrado<K,V> implements Map<K,V> {
 	}
 
 	@Override
-	public V remove(K key) {
+	public V remove(K key) { /// O(1)
 		if(key == null) throw new InvalidKeyException("La key no puede ser nula");
 		for(int i= hash(key); entries[i] != null; i= (i+1)%N) {
 			if(!entries[i].equals(DISPONIBLE) && entries[i].getKey().equals(key)) {
@@ -120,7 +120,7 @@ public class MapConHashCerrado<K,V> implements Map<K,V> {
 	}
 
 	@Override
-	public Iterable<K> keys() {
+	public Iterable<K> keys() { /// O(N+n)
 		PositionList<K> keys= new ListaDoblementeEnlazada<K>();
 		for(int i= 0; i < N; i++)
 			if(entries[i] != null && !entries[i].equals(DISPONIBLE))
@@ -129,7 +129,7 @@ public class MapConHashCerrado<K,V> implements Map<K,V> {
 	}
 
 	@Override
-	public Iterable<V> values() {
+	public Iterable<V> values() { /// O(N+n)
 		PositionList<V> values= new ListaDoblementeEnlazada<V>();
 		for(int i= 0; i < N; i++)
 			if(entries[i] != null && !entries[i].equals(DISPONIBLE))
@@ -138,7 +138,7 @@ public class MapConHashCerrado<K,V> implements Map<K,V> {
 	}
 
 	@Override
-	public Iterable<Entry<K,V>> entries() {
+	public Iterable<Entry<K,V>> entries() { /// O(N+n)
 		PositionList<Entry<K,V>> entradas= new ListaDoblementeEnlazada<Entry<K,V>>();
 		for(int i= 0; i < N; i++)
 			if(entries[i] != null && !entries[i].equals(DISPONIBLE))

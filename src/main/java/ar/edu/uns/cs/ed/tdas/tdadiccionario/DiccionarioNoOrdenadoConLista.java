@@ -11,22 +11,22 @@ import ar.edu.uns.cs.ed.tdas.tdamapeo.Entrada;
 public class DiccionarioNoOrdenadoConLista<K,V> implements Dictionary<K,V> {
 	PositionList<Entry<K,V>> lista;
 	
-	public DiccionarioNoOrdenadoConLista() {
+	public DiccionarioNoOrdenadoConLista() { /// O(1)
 		lista= new ListaDoblementeEnlazada<Entry<K,V>>();
 	}
 	
 	@Override
-	public int size() {
+	public int size() { /// O(1)
 		return lista.size();
 	}
 
 	@Override
-	public boolean isEmpty() {
+	public boolean isEmpty() { /// O(1)
 		return size() == 0;
 	}
 
 	@Override
-	public Entry<K,V> find(K key) {
+	public Entry<K,V> find(K key) { /// O(n)
 		if(key == null) throw new InvalidKeyException("La key no puede ser nula");
 		for(Entry<K,V> e: lista)
 			if(e.getKey().equals(key))
@@ -35,7 +35,7 @@ public class DiccionarioNoOrdenadoConLista<K,V> implements Dictionary<K,V> {
 	}
 
 	@Override
-	public Iterable<Entry<K,V>> findAll(K key) {
+	public Iterable<Entry<K,V>> findAll(K key) { /// O(n)
 		if(key == null) throw new InvalidKeyException("La key no puede ser nula");
 		PositionList<Entry<K,V>> l= new ListaDoblementeEnlazada<Entry<K,V>>();
 		for(Entry<K,V> e: lista)
@@ -45,7 +45,7 @@ public class DiccionarioNoOrdenadoConLista<K,V> implements Dictionary<K,V> {
 	}
 
 	@Override
-	public Entry<K,V> insert(K key, V value) {
+	public Entry<K,V> insert(K key, V value) { /// O(1)
 		if(key == null) throw new InvalidKeyException("La key no puede ser nula");
 		Entry<K,V> e= new Entrada<K,V>(key, value);
 		lista.addLast(e);
@@ -53,7 +53,7 @@ public class DiccionarioNoOrdenadoConLista<K,V> implements Dictionary<K,V> {
 	}
 
 	@Override
-	public Entry<K,V> remove(Entry<K,V> e) {
+	public Entry<K,V> remove(Entry<K,V> e) { /// O(n)
 		if(e == null) throw new InvalidEntryException("Entrada nula no admitida");
 		for(Position<Entry<K,V>> p: lista.positions())
 			if(p.element() == e) {
@@ -64,7 +64,7 @@ public class DiccionarioNoOrdenadoConLista<K,V> implements Dictionary<K,V> {
 	}
 
 	@Override
-	public Iterable<Entry<K,V>> entries() {
+	public Iterable<Entry<K,V>> entries() { /// O(1)
 		return lista;
 	}
 	
@@ -81,6 +81,14 @@ public class DiccionarioNoOrdenadoConLista<K,V> implements Dictionary<K,V> {
 		}
 		sb.append("}");
 		return sb.toString();
+	}
+	
+	public Iterable<Entry<K,V>> eliminarTodas(K c,V v) { /// O(n)
+		PositionList<Entry<K,V>> borrados= new ListaDoblementeEnlazada<Entry<K,V>>();
+		for(Entry<K,V> e: entries())
+			if(e.getKey().equals(c) && e.getValue().equals(v))
+				borrados.addLast(remove(e));
+		return borrados;
 	}
 
 }
