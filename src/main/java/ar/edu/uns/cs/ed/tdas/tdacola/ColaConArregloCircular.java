@@ -55,7 +55,7 @@ public class ColaConArregloCircular<E> implements Queue<E> {
 
 	@Override
 	public void enqueue(E item) {
-		if(size == MAX_SIZE-2) redimencionar();
+		if(size == MAX_SIZE) redimencionar();
 		datos[r]= item;
 		r= (r+1)%MAX_SIZE;
 		size++;
