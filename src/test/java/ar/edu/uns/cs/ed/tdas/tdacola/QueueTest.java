@@ -16,7 +16,7 @@ public class QueueTest {
 
 	private Queue<String> getQueue()
 	{
-	  return new ColaConArregloCircular<String>();
+	  return new ColaSimplementeEnlazada<String>();
 	 }
 	
 	@Before public void setUp()
