@@ -70,4 +70,18 @@ public class ColaSimplementeEnlazada<E> implements Queue<E> {
 		return output;
 	}
 
+	@Override
+	public String toString() {
+	    StringBuilder sb= new StringBuilder();
+	    sb.append("[");
+	    Nodo<E> cursor= head;
+	    while(cursor != null) {
+	    	sb.append(cursor.element());
+	        if(cursor.getSiguiente() != null)
+	            sb.append(", ");
+	        cursor= cursor.getSiguiente();
+	    }
+	    sb.append("]");
+	    return sb.toString();
+	}
 }
