@@ -64,7 +64,7 @@ public class ListaDoblementeEnlazada<E> implements PositionList<E> {
 		if(isEmpty()) return "[]";
 	    StringBuilder sb= new StringBuilder("[");
 	    for (Position<E> p= first(); p != null; p= (p == last()) ? null : next(p)) {
-	        sb.append(p.element());
+	        sb.append(p.element().toString());
 	        if(p != last())
 	        	sb.append(", ");
 	    }

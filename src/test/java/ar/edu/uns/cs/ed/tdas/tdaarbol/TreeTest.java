@@ -11,7 +11,7 @@ import ar.edu.uns.cs.ed.tdas.tdacola.Queue;
 import ar.edu.uns.cs.ed.tdas.tdalista.PositionList;
 import ar.edu.uns.cs.ed.tdas.Position;
 import ar.edu.uns.cs.ed.tdas.excepciones.*;
-import ar.edu.uns.cs.ed.tdas.tdacola.ArrayQueue;
+import ar.edu.uns.cs.ed.tdas.tdacola.ColaConArregloCircular;
 import ar.edu.uns.cs.ed.tdas.tdalista.ListaDoblementeEnlazada;
 
 
@@ -23,7 +23,7 @@ public class TreeTest {
 	 * Inicializa el árbol antes de cada test individual
 	 */
 	private Tree<Integer> getTree() {
-		return new Arbol<Integer>();
+		return new ArbolConLista<Integer>();
 	}
 
 	@Before
@@ -387,7 +387,7 @@ public class TreeTest {
 		// chequearHijosNiveles();
 		Position<Integer> p;
 		int i = 1;
-		Queue<Position<Integer>> cola = new ArrayQueue<Position<Integer>>();
+		Queue<Position<Integer>> cola = new ColaConArregloCircular<Position<Integer>>();
 		try {
 			p = T.root();
 		} catch (EmptyTreeException e1) {
@@ -439,7 +439,7 @@ public class TreeTest {
 		cargarArbol(T);
 		Position<Integer> p;
 		Iterator<Position<Integer>> hijos = null;
-		Queue<Position<Integer>> cola = new ArrayQueue<Position<Integer>>();
+		Queue<Position<Integer>> cola = new ColaConArregloCircular<Position<Integer>>();
 		// Posición inválida
 		try {
 			T.isExternal(null);
@@ -502,7 +502,7 @@ public class TreeTest {
 		cargarArbol(T);
 		Position<Integer> p = null;
 		Iterator<Position<Integer>> hijos = null;
-		Queue<Position<Integer>> cola = new ArrayQueue<Position<Integer>>();
+		Queue<Position<Integer>> cola = new ColaConArregloCircular<Position<Integer>>();
 		try {
 			T.isRoot(null);
 			fail("isRoot debería lanzar la excepción InvalidPositionException con una posición inválida");
@@ -1450,7 +1450,7 @@ public class TreeTest {
 		Position<Integer> p;
 		int el = 0;
 		Iterator<Integer> it = lista.iterator();
-		Queue<Position<Integer>> cola = new ArrayQueue<Position<Integer>>();
+		Queue<Position<Integer>> cola = new ColaConArregloCircular<Position<Integer>>();
 		Iterator<Position<Integer>> hijos = null;
 		try {
 			p = T.root();

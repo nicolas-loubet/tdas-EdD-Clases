@@ -1,7 +1,6 @@
 package ar.edu.uns.cs.ed.tdas.tdacola;
 
 import ar.edu.uns.cs.ed.tdas.excepciones.EmptyQueueException;
-
 import static org.junit.Assert.*;
 import org.junit.*;
 
@@ -17,7 +16,7 @@ public class QueueTest {
 
 	private Queue<String> getQueue()
 	{
-	  return new ColaEnlazada<String>();
+	  return new ColaConArregloCircular<String>();
 	 }
 	
 	@Before public void setUp()
