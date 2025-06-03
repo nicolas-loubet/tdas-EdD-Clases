@@ -23,6 +23,20 @@ public class DiccionarioNoOrdenadoConHashAbierto<K,V> implements Dictionary<K,V>
 	public DiccionarioNoOrdenadoConHashAbierto() { /// O(N)
 		this(31);
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb= new StringBuilder();
+        sb.append("{");
+        boolean first= true;
+        for(Entry<K,V> e: entries()) {
+            if(!first) sb.append(";");
+            sb.append(e.getKey()).append("=").append(e.getValue());
+            first= false;
+        }
+        sb.append("}");
+        return sb.toString();
+	}
 
 	private int hash(K i) { /// O(1)
 		if(i == null) throw new InvalidKeyException("La key no puede ser nula");
