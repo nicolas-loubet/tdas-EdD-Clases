@@ -11,6 +11,8 @@ import ar.edu.uns.cs.ed.tdas.tdacola.ColaSimplementeEnlazada;
 import ar.edu.uns.cs.ed.tdas.tdacola.Queue;
 import ar.edu.uns.cs.ed.tdas.tdalista.ListaDoblementeEnlazada;
 import ar.edu.uns.cs.ed.tdas.tdalista.PositionList;
+import ar.edu.uns.cs.ed.tdas.tdamapeo.Map;
+import ar.edu.uns.cs.ed.tdas.tdamapeo.MapConHashAbierto;
 
 public class ArbolConLista<E> implements Tree<E> {
 	protected int size;
@@ -446,5 +448,49 @@ public class ArbolConLista<E> implements Tree<E> {
 		PositionList<Position<E>> hermanos= n.getParent().getChildren();
 		if(hermanos.last().element() != p) throw new InvalidOperationException("p no es el último hijo");
 		removeNode(p);
+	}
+	
+	// Ejercicios clase 05/06/2025
+	
+	public int sizeSubarbol(Position<E> p) { /// O(N)
+		NodoConLista<E> n= checkPosition(p);
+		
+		if(isExternal(n)) return 1;
+		int s= 1;
+		for(Position<E> hijo: n.getChildren())
+			s+= sizeSubarbol(hijo);
+		return s;
+	}
+	
+	public Map<Position<E>,Integer>	mapSizeSubarboles() { /// O(N)
+		Map<Position<E>,Integer> mapa= new MapConHashAbierto<Position<E>,Integer>();
+		mapearYContar(root,mapa);
+		return mapa;
+	}
+	private int mapearYContar(NodoConLista<E> nodo, Map<Position<E>,Integer> mapa) {
+		if(isExternal(nodo)) {
+			mapa.put(nodo,1);
+			return 1;
+		}
+		
+		int s= 1;
+		for(Position<E> hijo: nodo.getChildren()) /// O(N)
+			s+= mapearYContar((NodoConLista<E>) hijo,mapa);
+		mapa.put(nodo,s); /// O(1)
+		return s;
+	}
+	
+	public int podarSubarbol(Position<E> p) { /// O(N)
+		NodoConLista<E> n= checkPosition(p);
+		if(isExternal(n)) {
+			removeExternalNode(p);
+			return 1;
+		}
+		
+		int s= 1;
+		for(Position<E> hijo: n.getChildren())
+			s+= podarSubarbol(hijo);
+		removeExternalNode(p);
+		return s;
 	}
 }
