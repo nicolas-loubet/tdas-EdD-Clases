@@ -1,5 +1,7 @@
 package ar.edu.uns.cs.ed.tdas.tdaarbol;
 
+import java.util.Iterator;
+
 import ar.edu.uns.cs.ed.tdas.Position;
 import ar.edu.uns.cs.ed.tdas.excepciones.InvalidOperationException;
 import ar.edu.uns.cs.ed.tdas.tdalista.ListaDoblementeEnlazada;
@@ -10,6 +12,11 @@ import ar.edu.uns.cs.ed.tdas.tdamapeo.MapConHashAbierto;
 public class EjerciciosClase {
 
 	public static void main(String[] args) {
+		prueba();
+		ej2();
+		ej3();
+		ej4();
+		ej5();
 		ej6();
 	}
 
@@ -146,8 +153,11 @@ public class EjerciciosClase {
 				if(pos == t.root()) {
 					// Esta parte se podría reemplazar con un try-catch
 					int cuenta_hijos= 0;
-					for(Position<E> hijo: t.children(pos)) // Grado de root repeticiones
+					Iterator<Position<E>> hijos= t.children(pos).iterator();
+					while(hijos.hasNext()) { // Grado de root repeticiones
+						hijos.next();
 						cuenta_hijos++;
+					}
 					if(cuenta_hijos >= 2) throw new InvalidOperationException("No puedo borrar el root con más de un hijo");
 				}
 				t.removeNode(pos);
