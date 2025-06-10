@@ -39,14 +39,14 @@ public class BinaryTreeTests {
 	 */
 	@Before
 	public void setUp() {
-		binaryTree = new ArbolBinario<Object>(); // cambiar esta línea para
+		binaryTree = new ArbolBinarioNoGT<Object>(); // cambiar esta línea para
 														// probar distintas
 														// implementaciones
 		o1 = new Object();
 		o2 = new Object();
 		// para método attach
-		leftTree = new ArbolBinario<Object>();
-		rightTree = new ArbolBinario<Object>();
+		leftTree = new ArbolBinarioNoGT<Object>();
+		rightTree = new ArbolBinarioNoGT<Object>();
 	}
 
 	/**

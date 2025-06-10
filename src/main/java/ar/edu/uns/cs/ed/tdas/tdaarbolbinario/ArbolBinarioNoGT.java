@@ -9,7 +9,7 @@ import ar.edu.uns.cs.ed.tdas.tdadiccionario.Dictionary;
 import ar.edu.uns.cs.ed.tdas.tdalista.ListaDoblementeEnlazada;
 import ar.edu.uns.cs.ed.tdas.tdalista.PositionList;
 
-public class ArbolBinario<E> implements BinaryTree<E> {
+public class ArbolBinarioNoGT<E> implements BinaryTree<E> {
 	@SuppressWarnings("hiding")
 	private class NodeLR<E> implements Position<E> {
 		private E elem;
@@ -56,7 +56,7 @@ public class ArbolBinario<E> implements BinaryTree<E> {
 	protected NodeLR<E> root;
 	protected int size;
 	
-	public ArbolBinario() { /// O(1)
+	public ArbolBinarioNoGT() { /// O(1)
 		root= null;
 		size= 0;
 	}

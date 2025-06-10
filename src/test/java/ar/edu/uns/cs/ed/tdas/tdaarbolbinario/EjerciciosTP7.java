@@ -14,11 +14,11 @@ public class EjerciciosTP7 {
 	}
 	
 	private static void ej1() {
-		BinaryTree<Integer> T0= new ArbolBinario<Integer>();
+		BinaryTree<Integer> T0= new ArbolBinarioNoGT<Integer>();
 		T0.createRoot(0);
-		BinaryTree<Integer> T1= new ArbolBinario<Integer>();
+		BinaryTree<Integer> T1= new ArbolBinarioNoGT<Integer>();
 		T1.createRoot(1);
-		BinaryTree<Integer> T2= new ArbolBinario<Integer>();
+		BinaryTree<Integer> T2= new ArbolBinarioNoGT<Integer>();
 		T2.createRoot(2);
 		System.out.println(T0);
 		System.out.println(T1);
@@ -29,7 +29,7 @@ public class EjerciciosTP7 {
 	}
 
 	private static void ej2() {
-		ArbolBinario<Integer> T= new ArbolBinario<Integer>();
+		ArbolBinarioNoGT<Integer> T= new ArbolBinarioNoGT<Integer>();
 		T.createRoot(1);
 		Position<Integer> p2= T.addLeft(T.root(),2);
 		Position<Integer> p3= T.addRight(T.root(),3);
@@ -41,7 +41,7 @@ public class EjerciciosTP7 {
 	}
 
 	private static void ej3() {
-		BinaryTree<Character> T= new ArbolBinario<Character>();
+		BinaryTree<Character> T= new ArbolBinarioNoGT<Character>();
 		T.createRoot('/');
 		Position<Character> p2= T.addLeft(T.root(),'*');
 		Position<Character> p3= T.addRight(T.root(),'+');
@@ -71,7 +71,7 @@ public class EjerciciosTP7 {
 	}
 
 	private static void ej4() {
-		BinaryTree<Integer> T= new ArbolBinario<Integer>();
+		BinaryTree<Integer> T= new ArbolBinarioNoGT<Integer>();
 		T.createRoot(1);
 		Position<Integer> p2= T.addLeft(T.root(),2);
 		Position<Integer> p3= T.addRight(T.root(),3);
@@ -91,7 +91,7 @@ public class EjerciciosTP7 {
 	}
 
 	private static void ej5() {
-		ArbolBinario<Character> T= new ArbolBinario<Character>();
+		ArbolBinarioNoGT<Character> T= new ArbolBinarioNoGT<Character>();
 		T.createRoot('/');
 		Position<Character> p2= T.addLeft(T.root(),'*');
 		Position<Character> p3= T.addRight(T.root(),'+');
