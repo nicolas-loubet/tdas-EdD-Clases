@@ -360,6 +360,11 @@ public class ArbolBinarioNoGT<E> implements BinaryTree<E> {
 		size++;
 		return n;
 	}
+	
+	private void vaciar() {
+		root= null;
+		size= 0;
+	}
 
 	@Override
 	public void attach(Position<E> r, BinaryTree<E> T1, BinaryTree<E> T2) {
@@ -370,12 +375,14 @@ public class ArbolBinarioNoGT<E> implements BinaryTree<E> {
 			padre.setLeft(hijo_izq);
 			hijo_izq.setParent(padre);
 			size+= T1.size();
+			((ArbolBinarioNoGT<E>)T1).vaciar();
 		}
 		if(!T2.isEmpty()) {
 			NodeLR<E> hijo_der= checkPosition(T2.root());
 			padre.setRight(hijo_der);
 			hijo_der.setParent(padre);
 			size+= T2.size();
+			((ArbolBinarioNoGT<E>)T2).vaciar();
 		}
 	}
 	
