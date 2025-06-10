@@ -39,14 +39,14 @@ public class BinaryTreeTests {
 	 */
 	@Before
 	public void setUp() {
-		binaryTree = new ArbolBinario<Object>(); // cambiar esta línea para
+		binaryTree = new ArbolBinarioNoGT<Object>(); // cambiar esta línea para
 														// probar distintas
 														// implementaciones
 		o1 = new Object();
 		o2 = new Object();
 		// para método attach
-		leftTree = new ArbolBinario<Object>();
-		rightTree = new ArbolBinario<Object>();
+		leftTree = new ArbolBinarioNoGT<Object>();
+		rightTree = new ArbolBinarioNoGT<Object>();
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class BinaryTreeTests {
 	public void positions_onlyRoot_iterableSizeEqualsOne() throws InvalidOperationException {
 		binaryTree.createRoot(new Object());
 		int size = 0;
-		for (Position<Object> _ : binaryTree.positions()) {
+		for (@SuppressWarnings("unused") Position<Object> p : binaryTree.positions()) {
 			size++;
 		}
 		assertEquals("El método positions retorna una colección iterable con " + size
