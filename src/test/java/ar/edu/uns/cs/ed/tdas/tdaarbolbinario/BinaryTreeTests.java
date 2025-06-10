@@ -137,7 +137,7 @@ public class BinaryTreeTests {
 	public void positions_onlyRoot_iterableSizeEqualsOne() throws InvalidOperationException {
 		binaryTree.createRoot(new Object());
 		int size = 0;
-		for (@SuppressWarnings("unused") Position<Object> _p : binaryTree.positions()) {
+		for (@SuppressWarnings("unused") Position<Object> p : binaryTree.positions()) {
 			size++;
 		}
 		assertEquals("El método positions retorna una colección iterable con " + size

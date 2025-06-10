@@ -8,8 +8,7 @@ import ar.edu.uns.cs.ed.tdas.tdaarbol.GTTree;
  * Extiende la interfaz Tree.
  * @author Cátedra de Estructuras de Datos, Departamento de Cs. e Ing. de la Computación, UNS.
  */
-public interface BinaryGTTree<E> extends GTTree<E>
-{
+public interface BinaryGTTree<E> extends GTTree<E> {
 	/**
 	 * Devuelve la posición del hijo izquierdo de v.
 	 * @param v Posición de un nodo.
@@ -76,5 +75,3 @@ public interface BinaryGTTree<E> extends GTTree<E>
 	public void attach(Position<E> r, BinaryTree<E> T1, BinaryTree<E> T2);
 	
 }
-
-	
