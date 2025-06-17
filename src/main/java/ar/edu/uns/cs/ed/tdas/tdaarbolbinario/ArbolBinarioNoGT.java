@@ -113,7 +113,6 @@ public class ArbolBinarioNoGT<E> implements BinaryTree<E> {
 
 	@Override
 	public boolean isRoot(Position<E> v) { /// O(1)
-		if(isEmpty()) throw new InvalidPositionException("Si el árbol está vacío no hay de otra que la posición fue borrada o es de otro TDA");
 		return root == checkPosition(v);
 	}
 
@@ -143,7 +142,6 @@ public class ArbolBinarioNoGT<E> implements BinaryTree<E> {
 	@Override
 	public Iterable<Position<E>> children(Position<E> v) { /// O(1)
 		PositionList<Position<E>> lista= new ListaDoblementeEnlazada<Position<E>>();
-		if(isEmpty()) return lista;
 		NodeLR<E> n= checkPosition(v);
 		if(n.getLeft() != null) lista.addLast(n.getLeft());
 		if(n.getRight() != null) lista.addLast(n.getRight());
@@ -319,12 +317,12 @@ public class ArbolBinarioNoGT<E> implements BinaryTree<E> {
 
 	@Override
 	public boolean hasLeft(Position<E> v) { /// O(1)
-		return !(checkPosition(v).getLeft() == null);
+		return checkPosition(v).getLeft() != null;
 	}
 
 	@Override
 	public boolean hasRight(Position<E> v) { /// O(1)
-		return !(checkPosition(v).getRight() == null);
+		return checkPosition(v).getRight() != null;
 	}
 
 	@Override
@@ -344,7 +342,7 @@ public class ArbolBinarioNoGT<E> implements BinaryTree<E> {
 	@Override
 	public Position<E> addLeft(Position<E> v, E r) { /// O(1)
 		NodeLR<E> padre= checkPosition(v);
-		if(!(padre.getLeft() == null)) throw new InvalidOperationException("Ya había un hijo izquierdo");
+		if(padre.getLeft() != null) throw new InvalidOperationException("Ya había un hijo izquierdo");
 		NodeLR<E> n= new NodeLR<E>(r,padre);
 		padre.setLeft(n);
 		size++;
@@ -354,7 +352,7 @@ public class ArbolBinarioNoGT<E> implements BinaryTree<E> {
 	@Override
 	public Position<E> addRight(Position<E> v, E r) { /// O(1)
 		NodeLR<E> padre= checkPosition(v);
-		if(!(padre.getRight() == null)) throw new InvalidOperationException("Ya había un hijo de ultra derecha");
+		if(padre.getRight() != null) throw new InvalidOperationException("Ya había un hijo de ultra derecha");
 		NodeLR<E> n= new NodeLR<E>(r,padre);
 		padre.setRight(n);
 		size++;
