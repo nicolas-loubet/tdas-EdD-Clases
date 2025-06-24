@@ -32,7 +32,7 @@ public class GrafoDirigidoConListaAdyacentes<V,E> implements GraphD<V,E> {
 
 		@Override
 		public String toString() {
-			return "Vertex{"+elem.toString()+"}";
+			return "DVertex{"+elem.toString()+"}";
 		}
 	}
 	
