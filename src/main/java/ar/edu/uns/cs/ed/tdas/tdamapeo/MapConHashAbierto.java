@@ -25,22 +25,23 @@ public class MapConHashAbierto<K,V> implements Map<K,V> {
 
 	private int hash(K i) { /// O(1)
 		if(i == null) throw new InvalidKeyException("La key no puede ser nula");
-		return i.hashCode()%N;
+		return Math.abs(i.hashCode()%N);
 	}
 	
-	private boolean esPrimo(int v) { /// O(v)
-		for(int i= 2; i < v-1; i++)
+	private boolean esPrimo(int v) { /// O(raiz(v))
+		// No tengo que evaluar el 2 porque voy a trabajar siempre con impares
+		for(int i= 3; i < Math.sqrt(v); i+= 2) // O(raiz(v)/2)
 			if(v % i == 0)
 				return false;
 		return true;
 	}
 	
-	private int proximoPrimo(int v) { /// O(v)
+	private int proximoPrimo(int v) { /// O(raiz(v) * numero de v necesarios hasta encontrar el siguiente, acotado por PI(v))
 		while(true) {
 			if(esPrimo(v))
 				return v;
 			else
-				v+= 2;
+				v+= 2; //Salteo los pares
 		}
 	}
 	
