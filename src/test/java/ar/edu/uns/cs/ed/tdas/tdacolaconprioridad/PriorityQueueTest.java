@@ -14,7 +14,7 @@ public class PriorityQueueTest {
 	private Integer i1, i2, i3, i4, i5, i6;
 
 	private PriorityQueue<Integer, String> getPriorityQueue() {
-		return new CCPconLista<Integer, String>(new Comparador<Integer>());
+		return new ColaConPrioridadConHeap<Integer, String>(new Comparador<Integer>());
 
 	}
 
